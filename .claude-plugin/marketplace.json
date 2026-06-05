@@ -1,0 +1,17 @@
+{
+  "name": "grasp-plugins",
+  "owner": {
+    "name": "Grasp"
+  },
+  "description": "Grasp plugins for Claude.",
+  "plugins": [
+    {
+      "name": "grasp",
+      "source": "./",
+      "description": "Deal-work workflows powered by Grasp MCP tools and skills.",
+      "author": {
+        "name": "Grasp"
+      }
+    }
+  ]
+}
