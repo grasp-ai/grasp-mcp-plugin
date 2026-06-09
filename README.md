@@ -1,5 +1,10 @@
 # Grasp Plugin
 
+> Public source warning: everything in this directory is published to the public
+> `grasp-ai/grasp-mcp-plugin` repository after merge to `main`. Do not include
+> secrets, private endpoints, customer data, internal implementation details, or
+> unreleased IP unless it is intentionally public.
+
 A Claude plugin for Grasp-powered M&A and deal work. It connects Claude to the
 hosted Grasp MCP server so agents can source companies, build and enrich tables,
 screen and shortlist targets, find buyers, and pull contacts through natural
@@ -24,13 +29,14 @@ language — backed by Grasp's company, financial, ownership, and contact data.
 - Claude Code CLI, Claude Desktop, or claude.ai.
 - A Grasp account with an active subscription and MCP entitlement for your
   organization. Tool access is scoped to that entitlement.
+- Network access to `https://app.grasp-ai.com/mcp`.
 
 ## Installation
 
 Add this repository as a plugin marketplace, then install:
 
 ```text
-/plugin marketplace add grasp-ai/grasp-plugin
+/plugin marketplace add grasp-ai/grasp-mcp-plugin
 /plugin install grasp@grasp-plugins
 ```
 
@@ -61,6 +67,9 @@ subscription.
 ## Usage Examples
 
 See [`examples/`](./examples) for full walkthroughs. A few prompts to start:
+
+These examples are intentionally lightweight so they can double as quick
+workflow validation prompts during plugin updates.
 
 ```text
 Build a list of Nordic pest control providers for Anticimex, 10–75 employees,
