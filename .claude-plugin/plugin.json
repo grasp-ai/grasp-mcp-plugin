@@ -1,13 +1,19 @@
 {
   "name": "grasp",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "Deal-work workflows powered by Grasp company lookup, table creation, import, buyer, transaction, table enrichment, contact, and market research tools.",
   "author": {
     "name": "Grasp"
   },
   "homepage": "https://grasp-ai.com",
   "repository": "https://github.com/grasp-ai/grasp-mcp-plugin",
-  "keywords": ["grasp", "mcp", "deal-work", "company-lookup", "mna"],
+  "keywords": [
+    "grasp",
+    "mcp",
+    "deal-work",
+    "company-lookup",
+    "mna"
+  ],
   "defaultEnabled": false,
   "mcpServers": "./.mcp.json"
 }

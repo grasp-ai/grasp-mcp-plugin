@@ -13,7 +13,9 @@ language — backed by Grasp's company, financial, ownership, and contact data.
 ## Features
 
 - **Sourcing** — build company, buyer, and transaction universes from a business
-  activity, geography, and size filters, or import a CSV/Excel list.
+  activity, geography, and size filters, or import a CSV/Excel list. Imported
+  rows match best by URL/domain; organization number plus country and name plus
+  country/location are also supported.
 - **Screening & shortlisting** — turn long lists into qualified, ranked, top-N
   shortlists with coverage checks and transparent escalation.
 - **Enrichment** — add financials, headcount, ownership, research, and computed
@@ -90,7 +92,8 @@ Pull the full Grasp profile for stripe.com and build a table of 15 similar compa
 - Requests carry only what you provide: company names, domains, filters, and the
   rows you explicitly pass to an import tool.
 - The plugin does not read Claude chat history, memory, or uploaded files except
-  rows you explicitly import.
+  rows you explicitly import. CSV/Excel files are parsed by the client/agent
+  before calling the import tool.
 - Data returned by Grasp is processed under the Grasp privacy policy:
   https://grasp-ai.com/privacy
 

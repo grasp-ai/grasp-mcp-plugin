@@ -78,13 +78,19 @@ Use `grasp_create_table` with `entity_type: "transaction"` for precedent transac
 
 ## User-Provided Lists
 
-Use `grasp_import_table` when the user brings their own CSV/Excel/copied company rows, URLs, domains, or names.
+Use `grasp_import_table` when the user brings their own CSV/Excel/copied company rows, URLs, domains, organization numbers, or names.
 
 - For CSV/Excel, read the file in the host environment and convert rows to objects.
-- Preserve user columns as source context when useful.
-- Identify URL/domain columns for matching when present. Use company name and country as supporting hints; preserve registration or organization numbers, addresses, and user-supplied IDs as source context.
+- Preserve useful user columns as source context.
+- Prefer URL/domain columns for matching when present.
+- If no URL/domain exists, use organization/registration number with a country or country_iso2 column.
+- If neither URL nor organization number exists, use company name with country/location hints.
+- Pass explicit column_mapping values:
+  - url for website/domain columns.
+  - org_number plus country or country_iso2 for registration-number matching.
+  - name plus optional country/location for name matching.
 - Normalize obvious formatting issues without changing company meaning, such as whitespace, URL schemes, `www.` prefixes, trailing paths, casing, or registration-number punctuation.
-- If rows have sparse identifiers, state that matching may be weaker and may need manual validation.
+- Name-based matching is weaker than URL/domain matching; after import, inspect match quality before filtering or shortlisting.
 - Do not use the `grasp_create_table` tool for a user-owned list unless the goal is to create a new Grasp-sourced universe.
 - After import, wait for completion, inspect match quality, then use `screening-and-shortlisting`, `working-with-tables`, `table-enrichment`, or `finding-contacts` as needed.
 
