@@ -25,6 +25,16 @@ Do not infer contact lookup from ranking, shortlist, acquisition-target, PE add-
 - Respect the `grasp_search_contacts` tool's domain, title, and result limits.
 - Founder-owned, owner-managed, PE-backed, family-owned, or management-owned target criteria are ownership criteria, not contact requests. Use `finding-contacts` only when the user asks for people or outreach details.
 
+## Locked Emails and Unlocking
+
+Contact emails from `grasp_search_contacts` may be locked (`email_locked: true` with `email: null`). Locked means the email exists but has not yet been revealed for the user.
+
+- Never guess, fabricate, or substitute a locked email. Present the contact with the email marked as locked.
+- To reveal locked emails, use the `grasp_unlock_contact_emails` tool with the contacts' `person_id` values. Contacts the user already unlocked are returned without re-fetching; contacts without a resolvable email come back as `not_found`.
+- Only unlock contacts the user has explicitly selected, and confirm the selection with the user before calling. Never unlock an entire search result set unprompted.
+- Unlocking requires an OAuth-connected Grasp account. With API-key auth, direct the user to unlock contacts in the Grasp platform instead.
+- Re-running `grasp_search_contacts` returns real emails for contacts the user already unlocked (`email_unlocked: true`).
+
 ## Workflow
 
 1. Identify the target companies or buyers.
@@ -35,6 +45,7 @@ Do not infer contact lookup from ranking, shortlist, acquisition-target, PE add-
    - Use `senior_only` only as a broad seniority hint when the user asks for senior decision-makers without naming specific roles.
    - Use `seniorities` only when the user asks for seniority classes rather than titles.
 3. Call the `grasp_search_contacts` tool with selected domains, explicit titles/seniority when useful, and a concise `usage_rationale`.
-4. Present contacts with company/domain, person, title, available contact fields, and missing coverage.
+4. Present contacts with company/domain, person, title, available contact fields (marking locked emails), and missing coverage.
+5. If the user selects contacts whose emails are locked, confirm the selection, then call `grasp_unlock_contact_emails` with those `person_id` values.
 
 Never invent emails, LinkedIn URLs, source links, or people. Treat absent results as coverage gaps, not proof that no relevant contact exists.
