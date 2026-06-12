@@ -68,6 +68,7 @@ If no table exists yet, first use `creating-tables` to create a high-recall univ
 
 7. Deep-dive important rows.
    - Use `company-lookup` for top candidates, expected-but-missing names, ambiguous identity, ownership checks, company profiles, financial detail, buyer capacity, or sanity checks.
+   - For shortlisted buyers, use the `grasp_get_buyer_deals` tool with the row's buyer company_id to review the full deal history: acquisition cadence, typical deal sizes, and multiples paid where covered. Distinguish deal-count evidence from valuation evidence.
    - Claude's own knowledge and web research may validate or challenge Grasp evidence, but must not replace Grasp table screening for the primary cut.
    - Use `finding-contacts` only after the company/buyer shortlist is clear and the user explicitly asks for people, emails, outreach, or contacts.
 

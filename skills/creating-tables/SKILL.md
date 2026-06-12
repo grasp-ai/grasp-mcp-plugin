@@ -71,8 +71,9 @@ Use `grasp_create_table` with `entity_type: "buyer"` for strategic buyers, finan
 
 ## Transaction Universes
 
-Use `grasp_create_table` with `entity_type: "transaction"` for precedent transactions, acquisition activity, buyer histories, market consolidation, and transaction comps.
+Use `grasp_create_table` with `entity_type: "transaction"` for semantic transaction discovery by target type: precedent transactions, sector acquisition activity, market consolidation, and transaction comps.
 
+- Transaction tables are search, not lookup. For the complete deal history of one known buyer ("what has buyer X acquired"), use the `grasp_get_buyer_deals` tool with the buyer's company_id instead; search recall is not guaranteed complete for a single buyer.
 - Use `business_activity` for the target company type in the transactions. Do not describe buyer/acquirer attributes there.
 - Use `geography` for target-company geography in the transactions. It is not buyer/acquirer HQ geography.
 - Leave buyer type, deal-size, screening, ranking, and exclusions for supported source filters or follow-up table work after creation.

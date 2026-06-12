@@ -20,8 +20,11 @@ language — backed by Grasp's company, financial, ownership, and contact data.
   shortlists with coverage checks and transparent escalation.
 - **Enrichment** — add financials, headcount, ownership, research, and computed
   columns to existing tables.
-- **Company intelligence** — profile a single company (business, financials,
-  ownership, employees, LinkedIn, deals, similar companies).
+- **Company intelligence** — resolve a name, domain, or org number to the right
+  legal entity, then profile it (business, financials, ownership, employees,
+  LinkedIn, acquisition-history summary, similar companies).
+- **Buyer deal history** — pull the complete recorded deal history of a known
+  buyer, including deal values and valuation multiples with derivation types.
 - **Contacts** — find person-level outreach contacts (CEO/owner/founder, corp
   dev, M&A) for selected companies or buyers.
 - **Table work** — filter, sort, query (SQL), describe, and export tables.

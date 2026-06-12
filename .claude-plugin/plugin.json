@@ -1,6 +1,6 @@
 {
   "name": "grasp",
-  "version": "1.1.6",
+  "version": "1.2.0",
   "description": "Deal-work workflows powered by Grasp company lookup, table creation, import, buyer, transaction, table enrichment, contact, and market research tools.",
   "author": {
     "name": "Grasp"
