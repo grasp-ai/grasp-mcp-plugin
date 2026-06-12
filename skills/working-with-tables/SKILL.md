@@ -12,9 +12,10 @@ This is a table-mechanics skill. If the user wants to screen, qualify, shortlist
 
 ## Handles
 
-- Use `table_id` or `table_slug`.
-- If the user refers to recent work, use the `grasp_list_tables` tool.
-- If the user gives a recent async job, wait or check status to recover the table handle.
+- Use UUID `table_id` values as tool handles.
+- Do not pass `table_slug` as a tool handle. Slugs are display, navigation, and SQL identifiers only.
+- If the user refers to recent work, use the `grasp_list_tables` tool to recover the UUID `table_id` and, when needed for composition, `conversation_id`.
+- If the user gives a recent async job, wait or check status to recover the UUID `table_id` and `conversation_id`.
 
 ## Workflow
 

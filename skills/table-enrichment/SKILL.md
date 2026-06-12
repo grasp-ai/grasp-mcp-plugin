@@ -10,6 +10,8 @@ Enrich only after inspecting the table. Prefer structured Grasp data before rese
 
 This is an evidence-building skill. If enrichment is needed to narrow, qualify, shortlist, prioritize, or rank a universe, use the `screening-and-shortlisting` skill as the orchestrator and return there after inspecting enrichment results.
 
+Existing-table enrichment uses UUID `table_id` values and does not take `conversation_id`. Do not pass `table_slug` as a tool handle. If enrichment requires creating helper/source tables that may later be composed, use the `creating-tables` skill first so those new tables share one setup `conversation_id`.
+
 ## Workflow
 
 1. Inspect the table with the `grasp_get_table` tool.

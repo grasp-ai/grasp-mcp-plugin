@@ -14,14 +14,24 @@ For requests that span table creation plus screening, filtering, enrichment, ran
 
 1. Choose the table path below and translate the mandate into activity, geography, entity type, and optional seed companies.
 2. When the request depends on a named target, buyer, reference company, or sample company, use the `company-lookup` skill first to understand the company's business, scale, geography, and canonical URL/domain, then return here to create the table.
-3. Create/import/compose the table and wait for completion.
+3. If this table-building scope does not already have a `conversation_id`, or the user starts a new scope or asks for a new Grasp conversation, call `grasp_setup_conversation`; then create/import/compose the table with that `conversation_id` and wait for completion.
 4. Inspect with the `grasp_get_table`, `grasp_get_table_rows`, and, when needed, `grasp_describe_table` tools.
 5. For screening, qualification, prioritization, top-N, ranking, or shortlist presentation from the long list, use the `screening-and-shortlisting` skill.
 6. For filtering, sorting, querying, exporting, or missing-row diagnosis without analyst selection, use the `working-with-tables` skill.
 7. For source columns, estimated financials, research columns, computed fields, and table-facing contact requests, use the `table-enrichment` skill.
 8. For person-level contacts, use the `finding-contacts` skill only after the target companies or buyers are clear.
 
-The default post-creation sequence is the `grasp_create_table` tool, the `grasp_check_job_status` tool to poll the async job if needed, the `grasp_get_table` tool, then row/describe/query inspection. Treat `grasp_get_table` previews as samples; do not make full-table, top-N, or coverage claims until rows, describe, query, or export support them. Do not call the `grasp_add_research_column` tool before that inspection.
+The default table-creation sequence is the `grasp_setup_conversation` tool for a new table-building scope, the `grasp_create_table` tool with the returned `conversation_id`, the `grasp_check_job_status` tool to poll the async job if needed, the `grasp_get_table` tool, then row/describe/query inspection. Treat `grasp_get_table` previews as samples; do not make full-table, top-N, or coverage claims until rows, describe, query, or export support them. Do not call the `grasp_add_research_column` tool before that inspection.
+
+## Conversation Context
+
+New table artifacts need a `conversation_id`. Set it once per table-building scope, not once per create/import/compose call.
+
+- Before the first `grasp_create_table` or `grasp_import_table` call in a table-building scope, call `grasp_setup_conversation` once and reuse the returned `conversation_id` for every new table artifact in that scope.
+- If the user asks for separate tables that may later be compared, merged, deduped, or composed, create all of those source tables with the same `conversation_id`.
+- For `grasp_compose_table`, use the `conversation_id` shared by the source tables. If those source tables were created in the current task, this is the setup ID. If they already exist, recover their `conversation_id` with `grasp_list_tables`, `grasp_get_table`, or `grasp_check_job_status`, and compose only tables from the same conversation.
+- Use UUID `table_id` values returned by status/list/get tools. Do not pass `table_slug` as a tool handle; slugs are display, navigation, and SQL identifiers only.
+- Existing-table update, research, enrichment, row-read, query, describe, and export tools derive conversation context from UUID `table_id` and do not take `conversation_id`.
 
 ## Company Universes
 
@@ -80,6 +90,7 @@ Use `grasp_create_table` with `entity_type: "transaction"` for precedent transac
 
 Use `grasp_import_table` when the user brings their own CSV/Excel/copied company rows, URLs, domains, organization numbers, or names.
 
+- Call `grasp_setup_conversation` first, then pass the returned `conversation_id` to `grasp_import_table`.
 - For CSV/Excel, read the file in the host environment and convert rows to objects.
 - Preserve useful user columns as source context.
 - Prefer URL/domain columns for matching when present.
@@ -100,6 +111,8 @@ Use `grasp_compose_table` when the user wants a merged, compared, deduplicated, 
 
 - Use the `grasp_list_tables` tool to find recent candidates when the user does not provide handles.
 - Inspect each source with the `grasp_get_table` tool before composing.
+- Use UUID `table_id` component handles and the shared source `conversation_id`; do not use `table_slug` handles.
+- If source tables are in different conversations, do not compose them in MCP V1. Explain that they need to be recreated under one setup conversation before composition.
 - Explain the composition logic: union, intersection, dedupe, comparison, or enrichment base.
 - Preserve source identity when it matters for auditability.
 - After composition, inspect rows before filtering, screening, shortlisting, or ranking.
@@ -121,4 +134,4 @@ Use when a user wants another table like an existing table.
 - Before calling the `grasp_create_table` tool, choose the matching entity path because `business_activity` and `geography` are interpreted differently for company, buyer, and transaction tables.
 - If a scoped search returns zero rows, report that result. Do not silently broaden the mandate.
 - Use the `grasp_read_docs` tool for exact source, filter, data-column, or workflow payload details when uncertain.
-- Use one table for a clear, coherent scope when it can express the user's mandate. Use separate or parallel `grasp_create_table` tool calls when the user asks for separate analyses or when docs, tool limits, or inspection show the combined search would be unsupported, capped, or misleading.
+- Use one table for a clear, coherent scope when it can express the user's mandate. Use separate or parallel `grasp_create_table` tool calls when the user asks for separate analyses or when docs, tool limits, or inspection show the combined search would be unsupported, capped, or misleading. Reuse the same `conversation_id` for separate tables created in one task, especially when they may later be composed.

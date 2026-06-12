@@ -31,6 +31,7 @@ If no table exists yet, first use `creating-tables` to create a high-recall univ
 1. Inspect the universe.
    - Use `working-with-tables` to inspect metadata, row count, columns, table version, links, preview, and row/query/export limits.
    - Treat `grasp_get_table` preview rows as samples only.
+   - Use UUID `table_id` handles for tool calls; `working-with-tables` can recover recent table IDs and conversation IDs when needed.
    - Every output or escalation must include the current Grasp table link.
 
 2. Translate the mandate into screening criteria.
