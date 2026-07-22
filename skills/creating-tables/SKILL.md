@@ -60,7 +60,7 @@ Use `grasp_create_table` with `entity_type: "buyer"` for strategic buyers, finan
 
 - Use `business_activity` for the type of company the buyer should acquire or invest in. Do not describe buyer attributes there.
 - Use `geography` for buyer geography: buyers headquartered in that geography or buyers with acquisition/investment history there.
-- Leave buyer size, ownership, screening, ranking, and exclusions for supported source filters or follow-up table work after creation.
+- Leave buyer size, screening, ranking, and exclusions for supported source filters or follow-up table work after creation. The structured current Ownership classifier is not supported on buyer tables.
 - If the user explicitly asks for buyers headquartered in X, create the buyer table, inspect returned buyer HQ/location columns, then filter after confirming exact columns.
 - If the user cares about "Nordic exposure" or "European software acquisition history", use geography to capture that exposure rather than stuffing it into `business_activity`.
 - Do not restrict buyer type by default. If requested, use `grasp_read_docs` to confirm the supported buyer-type filter; do not pass buyer type as a top-level create-table field.

@@ -47,7 +47,8 @@ If no table exists yet, first use `creating-tables` to create a high-recall univ
 
 4. Add Grasp evidence before semantic or sparse-data cuts.
    - Use `table-enrichment` for source columns, estimated financials, research columns, computed fields, or company-level contact-like fields.
-   - If the screen depends on semantic fit, specialization, customer segment, competitor relationship, buyer relevance, ownership/acquirability, likelihood to transact, or strategic rationale, add a narrow research column through `table-enrichment` before cutting.
+   - If a company-table screen depends on current ownership, use the table's structured ownership output. Populate missing cells with `grasp_run_table_outputs`, then use its companion fields, owner-level SQL, or `owner_matches`; do not add research to parse ownership fields that already exist. Structured Ownership is unsupported on buyer and transaction tables.
+   - If the screen depends on semantic fit, specialization, customer segment, competitor relationship, buyer relevance, acquisition likelihood, likelihood to transact, or strategic rationale, add a narrow research column through `table-enrichment` before cutting.
    - If a financial screen depends on revenue, assets, employees, or headcount and coverage is sparse, use `table-enrichment` and its estimated-financials guidance before excluding rows.
    - Inspect enrichment results before filtering, scoring, or presenting.
 

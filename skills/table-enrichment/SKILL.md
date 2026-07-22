@@ -1,7 +1,7 @@
 ---
 name: table-enrichment
 user-invocable: false
-description: "Use when the user wants to add, enrich, fill, estimate, compute, classify, segment, or evaluate data on an existing Grasp table: financials, employees/headcount, ownership, locations, LinkedIn data, buyer metadata, deal values, transaction details, research columns, computed fields, company-level phone/email/website fields, or fit notes."
+description: "Use when the user wants to add, populate, enrich, fill, estimate, compute, classify, segment, or evaluate data on an existing Grasp table: financials, employees/headcount, current ownership, locations, LinkedIn data, buyer metadata, deal values, transaction details, research columns, computed fields, company-level phone/email/website fields, or fit notes."
 ---
 
 # Table Enrichment
@@ -17,10 +17,11 @@ Existing-table enrichment uses UUID `table_id` values and does not take `convers
 1. Inspect the table with the `grasp_get_table` tool.
 2. Use the `grasp_describe_table` or `grasp_query_table` tool to understand coverage.
 3. Prefer reported/source columns when Grasp already stores the field.
-4. Use estimated financials only as labeled size proxies when reported coverage is thin.
-5. Add research columns only for evidence that is not already structured and affects a decision.
-6. Keep table contact-like fields separate from person-level outreach contacts.
-7. Inspect enrichment results before filtering, scoring, or presenting.
+4. For current ownership on company tables, follow the structured Ownership lifecycle below.
+5. Use estimated financials only as labeled size proxies when reported coverage is thin.
+6. Add research columns only for evidence that is not already structured and affects a decision.
+7. Keep table contact-like fields separate from person-level outreach contacts.
+8. Inspect enrichment results before filtering, scoring, or presenting.
 
 Do not make enrichment coverage claims from a `grasp_get_table` preview alone; use rows, describe, or query to inspect the affected columns.
 
@@ -32,6 +33,7 @@ When several related qualitative criteria support one decision, prefer one decis
 
 - One explicit research column: use the `grasp_add_research_column` tool.
 - Multiple table workflow changes, filters, sort, layout, or compute: use the `grasp_update_table` tool.
+- Missing cells in existing research, compute, or Ownership outputs: use the `grasp_run_table_outputs` tool.
 - Person-level outreach contact lookup: use the `finding-contacts` skill and keep contact lookup results separate from table fields in the answer.
 - Schema uncertainty: use the `grasp_read_docs` tool.
 
@@ -39,7 +41,7 @@ Always include a short `version_summary` for table updates.
 
 ## Source Columns
 
-Use source columns for fields Grasp already stores: financials, employees, ownership, locations, LinkedIn, buyer metadata, deal values, transaction details, company-level phone, website, generic email, or company LinkedIn fields.
+Use source columns for fields Grasp already stores: financials, employees, locations, LinkedIn, buyer metadata, deal values, transaction details, company-level phone, website, generic email, or company LinkedIn fields. The structured current Ownership result is a deferred workflow output, not a source/data column.
 
 - Inspect existing columns first.
 - Use the `grasp_read_docs` tool before adding unfamiliar fields.
@@ -48,6 +50,17 @@ Use source columns for fields Grasp already stores: financials, employees, owner
 - Do not guess currency suffixes or entity-specific field names.
 - Company-level phone, generic email, website, or company LinkedIn fields are source data when Grasp documents them as data columns; they are not person-level outreach contacts.
 - Use the `grasp_update_table` tool with `workflow.data_columns.add` when adding columns to a persisted table.
+
+## Current Ownership
+
+Current ownership has one route:
+
+- Company tables: use the structured `ownership` workflow output. Inspect the table first. New company tables already contain the deferred output, so populate its missing cells with `grasp_run_table_outputs`; never add a duplicate step. Add `{ "type": "ownership", "config": { "output_column": "ownership" } }` only when a legacy company table genuinely lacks that output.
+- Buyer and transaction tables: the structured Ownership classifier is unsupported. Do not add it and do not substitute a generic current-owner research column.
+
+Narrow the current view with cheap structured filters before population when the user only needs a subset. After the job succeeds, check coverage: NULL means not researched; the `unknown` companion code means researched but unresolved. Then filter or analyze the structured result. Use `primary_ownership_type` and `primary_ownership_subtype` for company-level categories, and query `ownership.owners[]` or use an `owner_matches` view filter for names, stakes, dates, relationships, joint ownership, and holding paths.
+
+Never add generic research merely to parse fields already present in `ownership`. Targeted research is appropriate for facts outside its schema, such as previous owners, pending transactions, exact fund/vintage, owner domicile, platform/add-on status, external portfolio companies, or exit likelihood.
 
 ## Estimated Financials
 
@@ -69,7 +82,7 @@ Good question shapes:
 
 - Binary: "Does the company provide rodent control services?"
 - Categorical: "What is the company's primary customer segment: residential, commercial, industrial, or mixed?"
-- Extraction: "What evidence is available for the company's current owner?"
+- Extraction: "Which investment fund and vintage is associated with the current financial owner?"
 - Free text: "Summarize the evidence for why this company fits the mandate."
 
 Guidelines:

@@ -5,6 +5,16 @@ All notable changes to the Grasp plugin are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.0]
+
+### Added
+
+- `grasp_run_table_outputs` populates missing cells in existing research, compute, or structured Ownership outputs across a table's captured current filtered view.
+
+### Changed
+
+- Current ownership has one documented company-table lifecycle: inspect the default deferred `ownership` output, narrow first when appropriate, populate it, check coverage, then filter or analyze. Structured Ownership is explicitly unsupported on buyer and transaction tables, and generic research is reserved for ownership questions outside the schema.
+
 ## [1.2.0]
 
 ### Added
