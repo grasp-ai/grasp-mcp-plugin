@@ -17,7 +17,7 @@ Existing-table enrichment uses UUID `table_id` values and does not take `convers
 1. Inspect the table with the `grasp_get_table` tool.
 2. Use the `grasp_describe_table` or `grasp_query_table` tool to understand coverage.
 3. Prefer reported/source columns when Grasp already stores the field.
-4. For current ownership on company tables, follow the structured Ownership lifecycle below.
+4. For current ownership on company or buyer tables, follow the structured Ownership lifecycle below.
 5. Use estimated financials only as labeled size proxies when reported coverage is thin.
 6. Add research columns only for evidence that is not already structured and affects a decision.
 7. Keep table contact-like fields separate from person-level outreach contacts.
@@ -53,12 +53,13 @@ Use source columns for fields Grasp already stores: financials, employees, locat
 
 ## Current Ownership
 
-Current ownership has one route:
+Current ownership has one structured route:
 
 - Company tables: use the structured `ownership` workflow output. Inspect the table first. New company tables already contain the deferred output, so populate its missing cells with `grasp_run_table_outputs`; never add a duplicate step. Add `{ "type": "ownership", "config": { "output_column": "ownership" } }` only when a legacy company table genuinely lacks that output.
-- Buyer and transaction tables: the structured Ownership classifier is unsupported. Do not add it and do not substitute a generic current-owner research column.
+- Buyer tables: use the structured `buyer_ownership` workflow output. It classifies the buyer organization identified by `buyer_url`, not its funds, portfolio companies, representative target, or acquisition history. New buyer tables already contain the deferred output; add exactly one `ownership` step with `output_column: "buyer_ownership"` only when a legacy buyer table genuinely lacks it.
+- Transaction tables: structured Ownership is unsupported. Do not add it and do not substitute a generic current-owner research column.
 
-Narrow the current view with cheap structured filters before population when the user only needs a subset. After the job succeeds, check coverage: NULL means not researched; the `unknown` companion code means researched but unresolved. Then filter or analyze the structured result. Use `primary_ownership_type` and `primary_ownership_subtype` for company-level categories, and query `ownership.owners[]` or use an `owner_matches` view filter for names, stakes, dates, relationships, joint ownership, and holding paths.
+Narrow the current view with cheap structured filters before population when the user only needs a subset. After the job succeeds, check coverage: NULL means not researched; the `unknown` companion code means researched but unresolved. Then filter or analyze the structured result. Use `primary_ownership_type` and `primary_ownership_subtype` for organization-level categories, and query the actual structured output's `owners[]` or use an `owner_matches` view filter on that output for names, stakes, dates, relationships, joint ownership, and holding paths.
 
 Never add generic research merely to parse fields already present in `ownership`. Targeted research is appropriate for facts outside its schema, such as previous owners, pending transactions, exact fund/vintage, owner domicile, platform/add-on status, external portfolio companies, or exit likelihood.
 
