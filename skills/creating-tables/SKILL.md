@@ -39,6 +39,7 @@ Use `grasp_create_table` with `entity_type: "company"` for targets, peers, compe
 
 - Use `business_activity` for the operating activity of the companies to find, e.g. "pest control services" or "industrial MRO distributors".
 - Put countries or regions in the `geography` field.
+- Multinationals: ask, don't default. Before creating a company table scoped to countries or regions, ask the user whether the list should include multinational companies (headquartered elsewhere, but operating in the scope geography) or only companies headquartered there. Give two options that name the scope, e.g. "Include multinationals: also companies headquartered elsewhere that operate in Denmark" or "HQ in Denmark only", with no recommendation. Ask it together with any other scope questions. Skip it only when the user already stated a preference (reuse it and restate it in the scope), or when the search is global, scoped to US states (they match HQ state, so the flag has no effect), or not a company search. Always pass `geography.include_multinational_companies` explicitly: `true` to include them, `false` for HQ only.
 - Leave size, revenue, ownership, exclusions, screening, shortlisting, and ranking for supported source filters or follow-up table work after creation.
 - Use validated company URLs in `similar_companies` when the user wants peers, competitors, targets, or similar companies around a seed.
 - Use explicit `entities` only when the user wants specific companies included, not as a substitute for a broad market source.
@@ -51,6 +52,7 @@ Example: "Find Nordic pest control providers for Anticimex, 10-75 employees, spe
 
 - `business_activity`: "Pest control services"
 - `geography`: Sweden, Norway, Denmark, Finland
+- Before creation: ask whether to include multinationals operating in the Nordics or only Nordic-headquartered companies, then pass `include_multinational_companies`.
 - After creation: inspect available fields; add one narrow decision-evidence research column only when needed.
 - If more qualitative evidence is needed, scope follow-up research to the narrowed set.
 

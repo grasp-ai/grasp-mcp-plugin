@@ -5,6 +5,17 @@ All notable changes to the Grasp plugin are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.4.0]
+
+### Added
+
+- `grasp_create_table` accepts `geography.include_multinational_companies` for company tables. By default (`true`), a country or region scope includes multinational companies headquartered elsewhere that operate there. `false` keeps only companies headquartered in the scope.
+- `grasp_get_table` and completed `grasp_check_job_status` results return `source_geography` for search tables: the countries, regions, and US states the table was created with and, for company tables scoped to countries or regions without US states, whether multinationals were included. The text summary names the same scope.
+
+### Changed
+
+- The `creating-tables` skill asks the user whether to include multinationals before creating a company table scoped to countries or regions, then passes the choice explicitly. The `company-lookup` skill lists an HQ-only scope as a possible reason a company is missing from a table, and both it and the `working-with-tables` skill point to `source_geography` to check the table's scope.
+
 ## [1.3.1]
 
 ### Changed

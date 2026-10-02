@@ -78,6 +78,7 @@ Use this path when the user asks why an expected company is absent.
    - already present under another name, URL, or parent
    - hidden by current filters or sort
    - outside geography, size, ownership, or activity scope
+   - headquartered outside the scope while the table keeps only companies headquartered there (`grasp_get_table` shows `source_geography.include_multinational_companies: false`). This cannot be changed on an existing table; create a new table with `true`.
    - source criteria too narrow
    - missing from available Grasp company data
 7. If it should be explicitly included in a new/corrected table, use the validated URL in `entities` when that matches the user's intent. Use `similar_companies` only for peer/similar-company seeding.

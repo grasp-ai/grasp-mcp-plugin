@@ -41,7 +41,7 @@ Use rows, describe, query, or export before making full-table, top-N, or coverag
 ## Missing Company In A Table
 
 - Use the `company-lookup` skill first to validate the expected company and canonical URL/domain.
-- Inspect whether the table scope, geography, source criteria, filters, size constraints, ownership constraints, and semantic research columns should include it.
+- Inspect whether the table scope, geography (`source_geography` from `grasp_get_table`, including whether multinationals were included), source criteria, filters, size constraints, ownership constraints, and semantic research columns should include it.
 - Check whether it is present under another name, URL, or parent before calling it absent.
 - If it is outside scope, explain the mismatch.
 - If it appears to be a false negative, present it as a corrected-table/manual-add/watch item and explain the evidence gap.
