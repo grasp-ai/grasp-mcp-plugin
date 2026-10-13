@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "grasp": {
+      "type": "streamable-http",
+      "url": "https://app.grasp-ai.com/mcp"
+    }
+  }
+}

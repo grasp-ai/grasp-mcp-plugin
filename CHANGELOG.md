@@ -5,6 +5,16 @@ All notable changes to the Grasp plugin are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.0]
+
+### Added
+
+- `.codex-plugin/plugin.json`, `assets/` icons and `mcp.json`, so the same plugin can be submitted to the ChatGPT Plugin Directory. `mcp.json` declares the Grasp server as Streamable HTTP for ChatGPT; Claude keeps using `.mcp.json`. The manifest holds the listing details OpenAI requires: display name, descriptions, developer, category, capabilities, starter prompts, icons, and website, support, privacy and terms links.
+
+### Changed
+
+- Skills use provider-neutral wording: `screening-and-shortlisting` refers to the model's own knowledge instead of Claude's, and `creating-tables` calls Grasp tables "tables" instead of "table artifacts".
+
 ## [1.4.0]
 
 ### Added

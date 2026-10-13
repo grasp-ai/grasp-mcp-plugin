@@ -25,9 +25,9 @@ The default table-creation sequence is the `grasp_setup_conversation` tool for a
 
 ## Conversation Context
 
-New table artifacts need a `conversation_id`. Set it once per table-building scope, not once per create/import/compose call.
+New tables need a `conversation_id`. Set it once per table-building scope, not once per create/import/compose call.
 
-- Before the first `grasp_create_table` or `grasp_import_table` call in a table-building scope, call `grasp_setup_conversation` once and reuse the returned `conversation_id` for every new table artifact in that scope.
+- Before the first `grasp_create_table` or `grasp_import_table` call in a table-building scope, call `grasp_setup_conversation` once and reuse the returned `conversation_id` for every new table in that scope.
 - If the user asks for separate tables that may later be compared, merged, deduped, or composed, create all of those source tables with the same `conversation_id`.
 - For `grasp_compose_table`, use the `conversation_id` shared by the source tables. If those source tables were created in the current task, this is the setup ID. If they already exist, recover their `conversation_id` with `grasp_list_tables`, `grasp_get_table`, or `grasp_check_job_status`, and compose only tables from the same conversation.
 - Use UUID `table_id` values returned by status/list/get tools. Do not pass `table_slug` as a tool handle; slugs are display, navigation, and SQL identifiers only.

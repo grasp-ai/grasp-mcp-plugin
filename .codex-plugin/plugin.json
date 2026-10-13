@@ -1,0 +1,45 @@
+{
+  "name": "grasp",
+  "version": "1.5.0",
+  "description": "Deal-work workflows powered by Grasp company lookup, table creation, import, buyer, transaction, table enrichment, contact, and market research tools.",
+  "author": {
+    "name": "Grasp AI",
+    "email": "dev@grasp-ai.com",
+    "url": "https://www.grasp-ai.com"
+  },
+  "homepage": "https://www.grasp-ai.com/mcp-documentation",
+  "repository": "https://github.com/grasp-ai/grasp-mcp-plugin",
+  "keywords": [
+    "grasp",
+    "mcp",
+    "deal-work",
+    "company-lookup",
+    "mna"
+  ],
+  "mcpServers": "./mcp.json",
+  "interface": {
+    "displayName": "Grasp",
+    "shortDescription": "Company research for M&A",
+    "longDescription": "Grasp brings company, financial, ownership, deal and contact data into your conversations. Resolve a company to the right legal entity and profile it, build and enrich target and buyer lists, look up an acquirer's full deal history with valuation multiples, and find outreach contacts. Requires a Grasp account with MCP access enabled for your organization.",
+    "developerName": "Grasp AI",
+    "category": "Productivity",
+    "capabilities": [
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Build a list of Nordic HVAC service companies with 20 to 200 employees.",
+      "Give me a profile of Anticimex: business, latest financials, ownership and employees.",
+      "What has Lifco acquired, and at what valuation multiples?"
+    ],
+    "brandColor": "#000000",
+    "websiteURL": "https://www.grasp-ai.com",
+    "supportURL": "https://www.grasp-ai.com/contact",
+    "privacyPolicyURL": "https://www.grasp-ai.com/privacy-policy",
+    "termsOfServiceURL": "https://www.grasp-ai.com/terms-of-use",
+    "logo": "./assets/logo.png",
+    "logoDark": "./assets/logo-dark.png",
+    "composerIcon": "./assets/logo.png",
+    "composerIconDark": "./assets/logo-dark.png"
+  }
+}
