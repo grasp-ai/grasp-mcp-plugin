@@ -40,7 +40,7 @@ Use `grasp_create_table` with `entity_type: "company"` for targets, peers, compe
 - Use `business_activity` for the operating activity of the companies to find, e.g. "pest control services" or "industrial MRO distributors".
 - Put countries or regions in the `geography` field.
 - Multinationals: ask, don't default. Before creating a company table scoped to countries or regions, ask the user whether the list should include multinational companies (headquartered elsewhere, but operating in the scope geography) or only companies headquartered there. Give two options that name the scope, e.g. "Include multinationals: also companies headquartered elsewhere that operate in Denmark" or "HQ in Denmark only", with no recommendation. Ask it together with any other scope questions. Skip it only when the user already stated a preference (reuse it and restate it in the scope), or when the search is global, scoped to US states (they match HQ state, so the flag has no effect), or not a company search. Always pass `geography.include_multinational_companies` explicitly: `true` to include them, `false` for HQ only.
-- Leave size, revenue, ownership, exclusions, screening, shortlisting, and ranking for supported source filters or follow-up table work after creation.
+- Company searches apply only `value_chain_category` as a source filter. Don't put revenue, employee, ownership, or exclusion limits in `source_filters` or `business_activity`. After creation, check coverage, then filter revenue and employees with `workflow.view.filters` on the returned columns (company tables include the latest revenue and employee columns; rows with no value fall out of a range filter, see `screening-and-shortlisting`). Ownership starts empty: fill it with `grasp_run_table_outputs`, then filter type limits on `primary_ownership_type` or `primary_ownership_subtype` (use `owner_matches` only for same-owner conditions such as stake or owner name). Screening, shortlisting, and ranking are follow-up table work.
 - Use validated company URLs in `similar_companies` when the user wants peers, competitors, targets, or similar companies around a seed.
 - Use explicit `entities` only when the user wants specific companies included, not as a substitute for a broad market source.
 - Prefer recall at creation, then refine with screening, filters, research, enrichment, or ranking.
@@ -78,10 +78,10 @@ Use `grasp_create_table` with `entity_type: "transaction"` for semantic transact
 - Transaction tables are search, not lookup. For the complete deal history of one known buyer ("what has buyer X acquired"), use the `grasp_get_buyer_deals` tool with the buyer's company_id instead; search recall is not guaranteed complete for a single buyer.
 - Use `business_activity` for the target company type in the transactions. Do not describe buyer/acquirer attributes there.
 - Use `geography` for target-company geography in the transactions. It is not buyer/acquirer HQ geography.
-- Leave buyer type, deal-size, screening, ranking, and exclusions for supported source filters or follow-up table work after creation.
+- Transaction searches apply only `deal_year`, `buyer_type`, and `buyer_url` as source filters. Apply deal size and other limits after creation with `workflow.view.filters`; screening, ranking, and exclusions are follow-up table work.
 - Use one transaction table for a coherent multi-region scope such as US and Europe when Grasp can express it. Split into separate tables only if the user asks for separate analyses, the tool cannot express the combined geography, or inspection shows caps/coverage require a follow-up split.
 - If the user wants acquirers from a geography, create/query transaction rows first, inspect buyer/acquirer fields, then filter or aggregate after creation.
-- Add year constraints with supported source filters when docs confirm the shape; otherwise filter after creation.
+- Put year limits in a `deal_year` source filter as whole-year `>=`/`<=` bounds.
 - Inspect target, buyer, year, country, deal status, value, and source fields before drawing conclusions.
 - Use the `grasp_query_table` tool for buyer frequency, active acquirers, buyer-type mix, target countries, deal years, and available value coverage.
 - For selected comps, precedent-transaction shortlists, top-N, or ranked deal outputs, use `screening-and-shortlisting` after creation.
