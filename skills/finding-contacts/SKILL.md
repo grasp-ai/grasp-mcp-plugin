@@ -32,7 +32,6 @@ Contact emails from `grasp_search_contacts` may be locked (`email_locked: true` 
 - Never guess, fabricate, or substitute a locked email. Present the contact with the email marked as locked.
 - To reveal locked emails, use the `grasp_unlock_contact_emails` tool with the contacts' `person_id` values. Contacts the user already unlocked are returned without re-fetching; contacts without a resolvable email come back as `not_found`.
 - Only unlock contacts the user has explicitly selected, and confirm the selection with the user before calling. Never unlock an entire search result set unprompted.
-- Unlocking requires an OAuth-connected Grasp account. With API-key auth, direct the user to unlock contacts in the Grasp platform instead.
 - Re-running `grasp_search_contacts` returns real emails for contacts the user already unlocked (`email_unlocked: true`).
 
 ## Workflow
