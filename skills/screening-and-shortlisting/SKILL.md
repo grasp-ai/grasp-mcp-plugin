@@ -1,7 +1,7 @@
 ---
 name: screening-and-shortlisting
 user-invocable: false
-description: Screens and shortlists Grasp tables/universes into qualified, prioritized, ranked, or top-N outputs across companies, buyers, targets, peers, competitors, acquirers, investors, or deals. Use when the user asks to screen, narrow, qualify, shortlist, prioritize, rank, select best/top candidates, map a landscape, or produce recommendations from a Grasp long list. Enforces coverage checks, enrichment/research/proxies, table links, and transparent escalation.
+description: Screens and shortlists Grasp tables/universes into qualified, prioritized, ranked, or top-N outputs across companies, buyers, targets, peers, competitors, acquirers, investors, or deals. Use when the user asks to screen, narrow, qualify, shortlist, prioritize, rank, select best/top candidates, find targets in a list or universe they already have, map a landscape, or produce recommendations from a Grasp long list. Enforces coverage checks, enrichment/research/proxies, table links, and transparent escalation.
 ---
 
 # Screening And Shortlisting
