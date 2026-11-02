@@ -1,6 +1,6 @@
 {
   "name": "grasp",
-  "version": "1.5.3",
+  "version": "1.5.4",
   "description": "Deal-work workflows powered by Grasp company lookup, table creation, import, buyer, transaction, table enrichment, contact, and market research tools.",
   "author": {
     "name": "Grasp AI",
@@ -41,5 +41,59 @@
     "logoDark": "./assets/logo-dark.png",
     "composerIcon": "./assets/logo.png",
     "composerIconDark": "./assets/logo-dark.png"
+  },
+  "extensions": {
+    "com.openai": {
+      "review": {
+        "test_cases": {
+          "positive": [
+            {
+              "description": "Find the right legal entity for a named company and profile it",
+              "prompt": "Use Grasp to give me a profile of Anticimex: business, latest financials, ownership and employees.",
+              "tools_triggered": "grasp_search_companies, grasp_get_company",
+              "expected_behavior": "Calls grasp_search_companies, picks Anticimex (anticimex.com, Sweden) from the candidates, then calls grasp_get_company with its company_id. The answer describes the business, gives the latest revenue and EBITDA with currency and year, the owner or ownership type and the number of employees, and links to the company in Grasp."
+            },
+            {
+              "description": "Full deal history of a known acquirer, with multiples only where disclosed",
+              "prompt": "Use Grasp to find what Lifco has acquired, and at what valuation multiples.",
+              "tools_triggered": "grasp_search_companies, grasp_get_buyer_deals",
+              "expected_behavior": "Calls grasp_search_companies to find Lifco AB (Sweden), then grasp_get_buyer_deals with its company_id. Lists recent acquisitions with target and year, gives EV/Sales or EV/EBITDA only for deals that have them, and says how many deals have disclosed multiples. Does not make up multiples for the rest."
+            },
+            {
+              "description": "Build a list of target companies by industry, region and size",
+              "prompt": "Use Grasp to build a list of Nordic-headquartered HVAC service companies with 20 to 200 employees.",
+              "tools_triggered": "grasp_setup_conversation, grasp_create_table, grasp_check_job_status, grasp_update_table",
+              "expected_behavior": "Calls grasp_setup_conversation, then grasp_create_table for HVAC service companies headquartered in the Nordic countries, and polls grasp_check_job_status until the job succeeds. Filters the table to 20 to 200 employees with grasp_update_table and polls again. Reports how many companies are left, shows a few of them in a small table, and links to the table in Grasp."
+            },
+            {
+              "description": "Build a list of likely buyers for a company being sold",
+              "prompt": "Use Grasp to find likely buyers for a UK industrial MRO distributor.",
+              "tools_triggered": "grasp_setup_conversation, grasp_create_table, grasp_check_job_status",
+              "expected_behavior": "Calls grasp_setup_conversation, then grasp_create_table with entity_type buyer, industrial MRO distribution as the business activity and the UK as geography, and polls grasp_check_job_status until the job succeeds. Reports how many buyers were found, shows a few of them in a small table, and links to the table in Grasp."
+            },
+            {
+              "description": "Find named decision makers at selected companies for outreach, without unlocking emails unasked",
+              "prompt": "Use Grasp to find the CEO and CFO at RS Group (rsgroup.com) and Diploma (diplomaplc.com), with their LinkedIn profiles, so I can reach out.",
+              "tools_triggered": "grasp_search_contacts",
+              "expected_behavior": "Calls grasp_search_contacts for rsgroup.com and diplomaplc.com with CEO and CFO titles. Lists the people found with name, title, company and LinkedIn profile, and says which role it could not find. Emails stay locked: it does not call grasp_unlock_contact_emails unless the user picks contacts and confirms."
+            }
+          ],
+          "negative": [
+            {
+              "description": "A consumer looking for a local service, not company research for a deal. Grasp could find pest control companies but has no availability, reviews or booking. Expected: ChatGPT uses web or map search and calls no Grasp tool.",
+              "prompt": "I have mice in my apartment in Stockholm. Find me a pest control company nearby that can come this week."
+            },
+            {
+              "description": "Live market data. Grasp has company financials and deals but no share prices. Expected: ChatGPT uses web search for the price and calls no Grasp tool.",
+              "prompt": "What is Lifco's share price right now?"
+            },
+            {
+              "description": "General M&A drafting that needs no company data. Expected: ChatGPT writes the template itself and calls no Grasp tool.",
+              "prompt": "Draft a one-page letter of intent template for buying 100% of a private company."
+            }
+          ]
+        }
+      }
+    }
   }
 }
