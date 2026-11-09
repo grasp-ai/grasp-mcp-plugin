@@ -18,6 +18,8 @@ language — backed by Grasp's company, financial, ownership, and contact data.
   country/location are also supported.
 - **Screening & shortlisting** — turn long lists into qualified, ranked, top-N
   shortlists with coverage checks and transparent escalation.
+- **Saved workflows** — reuse your organization's table methods on a new list,
+  stage by stage, and save or update your own.
 - **Enrichment** — add financials, headcount, ownership, research, and computed
   columns to existing tables.
 - **Company intelligence** — resolve a name, domain, or org number to the right
