@@ -6,7 +6,7 @@ description: "Use when the user wants to add, populate, enrich, fill, estimate, 
 
 # Table Enrichment
 
-Enrich only after inspecting the table. Prefer structured Grasp data before research questions, and distinguish table columns from separate contact lookup results.
+Enrich only after inspecting the table. Prefer structured Grasp data before research questions, and distinguish company-level table fields from person-level contacts.
 
 This is an evidence-building skill. If enrichment is needed to narrow, qualify, shortlist, prioritize, or rank a universe, use the `screening-and-shortlisting` skill as the orchestrator and return there after inspecting enrichment results.
 
@@ -33,8 +33,8 @@ When several related qualitative criteria support one decision, prefer one decis
 
 - One explicit research column: use the `grasp_add_research_column` tool.
 - Multiple table workflow changes, filters, sort, layout, or compute: use the `grasp_update_table` tool.
-- Missing cells in existing research, compute, or Ownership outputs: use the `grasp_run_table_outputs` tool.
-- Person-level outreach contact lookup: use the `finding-contacts` skill and keep contact lookup results separate from table fields in the answer.
+- Missing cells in existing research, compute, Ownership, or contact outputs: use the `grasp_run_table_outputs` tool.
+- People across the table, or any person-level outreach contacts: use the `finding-contacts` skill. It adds contact columns for a table.
 - Schema uncertainty: use the `grasp_read_docs` tool.
 
 Always include a short `version_summary` for table updates.
@@ -94,18 +94,15 @@ Guidelines:
 - Use `where` to limit research to eligible rows when possible.
 - Do not use research as a substitute for source columns.
 - Treat research outputs as evidence to review, not automatic truth.
-- Treat contact-like research as evidence to verify, not confirmed outreach contacts.
+- Do not use research columns to find people. Use contact columns from the `finding-contacts` skill.
 
 ## Contact-Like Table Fields
 
-Use only when the user wants contact-like information persisted as table columns. For person-level outreach contacts, stop and use the `finding-contacts` skill.
+Use only when the user wants company-level contact fields as table columns. For person-level outreach contacts, including across a whole table, stop and use the `finding-contacts` skill.
 
 Do not treat a ranking, shortlist, PE add-on, acquisition-target, or buyer-universe request as a contact request unless the user explicitly asks for outreach contacts.
 
 - Source columns can provide company-level phone, website, generic email, or company LinkedIn fields when Grasp documents them as available table columns.
-- Research columns can provide broad public extraction at table scale when the user needs contact-like evidence across many companies.
-- These are not contact lookup results and should not be presented as verified outreach contacts.
-- If the user wants CEO/CFO/founder/owner/corporate-development people, work emails, phone numbers, person LinkedIn profiles, or outreach routes for selected companies, use the `finding-contacts` skill.
-- If the user asks for contacts across a full long list, recommend narrowing first. If they still need table-wide coverage, use research columns and state that the result is contact-like evidence, not contact lookup data.
-- Inspect exact URL/domain columns before adding any contact-like research column.
+- These are not person-level contacts and should not be presented as verified outreach contacts.
+- If the user wants CEO/CFO/founder/owner/corporate-development people, work emails, phone numbers, person LinkedIn profiles, or outreach routes, use the `finding-contacts` skill.
 - Present missing values as missing coverage, not as proof that no relevant contact exists.
