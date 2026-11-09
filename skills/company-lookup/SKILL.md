@@ -41,12 +41,27 @@ Use shallow sections before table/list work. Request full sections only when nee
 - `business`, `financials`, `employees`, `org_structure`: default partial sections are usually enough for mandate translation.
 - `financials: "full"`: use for reported or estimated financial detail, evidence review, or acquisition-capacity analysis.
 - `employees: "full"` or `linkedin: "partial" | "full"`: use for deeper headcount, LinkedIn, or geographic-presence analysis.
-- `org_structure`, `shareholders`, `beneficial_owners`, `directors`: use for ownership, control, founder/family/PE/corporate status, or governance questions.
+- `org_structure`, `shareholders`, `beneficial_owners`, `directors`: use for what registries and filings record about ownership, control, or governance. For researched owners and founder/family/PE/corporate status, use `grasp_research_company_ownership`. See Ownership Research.
 - `deals`: returns an acquisition-history summary only (total deal count, latest deal year). Use it to learn whether and how recently the company acquires. For the complete deal history of this company as a buyer, including deal values and valuation multiples, use the `grasp_get_buyer_deals` tool with the same company_id. For sector transaction comps driven by target type, use the `creating-tables` skill with transaction tables.
 - `similar_companies`: use for profile-level peer hints or seed discovery, not as a substitute for a full company search.
 - `contacts`: use only for company-profile contact records in a one-company deep dive when explicitly requested. For outreach/person search by role, use the `finding-contacts` skill.
 
 Mark missing, estimated, stale, sparse, or converted fields as caveats.
+
+## Ownership Research
+
+For "who owns X", sponsor or founder status, or stakes in one company, call `grasp_research_company_ownership` with the `company_id`. It is free and returns `ownership_research`. Read its `status`:
+
+- `ready`: `result` holds owners, overview, rationale with inline [n] citations, sources, and as_of. An empty `owners` list means research found no owner, not that the company has none: some sources may have been out of reach. Say ownership could not be determined, not that there is no owner.
+- `researching`: `job_id` is returned. Research takes up to 3 minutes. Poll `grasp_check_job_status` with the `job_id`; if you can't pause between calls, pass `wait_seconds` so each call waits for the job. The finished job returns `ownership_research`; read its `status` as well as the job's.
+- `in_progress`: research cannot start yet. Call the tool again shortly instead of reporting no owner.
+- `unavailable`: research could not finish, which says nothing about the owners. Say so, and call again in about 5 minutes.
+- `limit_reached`: the limit of 30 new research runs per user per hour is reached. Stored results still return. Say so, and offer the table column below.
+- `company_not_found`: resolve a fresh `company_id` with `grasp_search_companies`.
+
+In the answer, keep the [n] citations with their sources and state `as_of`.
+
+Use this tool for up to 5 companies the user asked about, at most 3 at a time. For more, populate the table's `ownership` column with `grasp_run_table_outputs` (see the `table-enrichment` skill). When ownership is only a side detail, the compact ownership in `grasp_get_company` is enough. Use `beneficial_owners`, `shareholders`, and `org_structure` for what registries and filings record; this tool researches beyond them and cites its sources.
 
 ## Buyer Deal History
 
