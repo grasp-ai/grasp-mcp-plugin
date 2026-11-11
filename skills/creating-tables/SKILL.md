@@ -14,7 +14,7 @@ For requests that span table creation plus screening, filtering, enrichment, ran
 
 1. Choose the table path below and translate the mandate into activity, geography, entity type, and optional seed companies.
 2. When the request depends on a named target, buyer, reference company, or sample company, use the `company-lookup` skill first to understand the company's business, scale, geography, and canonical URL/domain, then return here to create the table.
-3. If this table-building scope does not already have a `conversation_id`, or the user starts a new scope or asks for a new Grasp conversation, call `grasp_setup_conversation`; then create/import/compose the table with that `conversation_id` and wait for completion.
+3. If this table-building scope does not already have a `conversation_id`, or the user starts a new scope or asks for a new Grasp conversation, call `grasp_setup_conversation` (see Conversation Context); then create or import the table with that `conversation_id` and wait for completion. For compose, use the source tables' `conversation_id`.
 4. Inspect with the `grasp_get_table`, `grasp_get_table_rows`, and, when needed, `grasp_describe_table` tools.
 5. For screening, qualification, prioritization, top-N, ranking, or shortlist presentation from the long list, use the `screening-and-shortlisting` skill.
 6. For filtering, sorting, querying, exporting, or missing-row diagnosis without analyst selection, use the `working-with-tables` skill.
@@ -28,6 +28,7 @@ The default table-creation sequence is the `grasp_setup_conversation` tool for a
 New tables need a `conversation_id`. Set it once per table-building scope, not once per create/import/compose call.
 
 - Before the first `grasp_create_table` or `grasp_import_table` call in a table-building scope, call `grasp_setup_conversation` once and reuse the returned `conversation_id` for every new table in that scope.
+- When the work is for a Grasp project, check its lists with `grasp_list_project_tables` before building: the team may already have the list.
 - If the user asks for separate tables that may later be compared, merged, deduped, or composed, create all of those source tables with the same `conversation_id`.
 - For `grasp_compose_table`, use the `conversation_id` shared by the source tables. If those source tables were created in the current task, this is the setup ID. If they already exist, recover their `conversation_id` with `grasp_list_tables`, `grasp_get_table`, or `grasp_check_job_status`, and compose only tables from the same conversation.
 - Use UUID `table_id` values returned by status/list/get tools. Do not pass `table_slug` as a tool handle; slugs are display, navigation, and SQL identifiers only.

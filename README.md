@@ -30,6 +30,8 @@ language — backed by Grasp's company, financial, ownership, and contact data.
 - **Contacts** — find person-level outreach contacts (CEO/owner/founder, corp
   dev, M&A) for selected companies or buyers.
 - **Table work** — filter, sort, query (SQL), describe, and export tables.
+- **Projects** — work inside a Grasp project: apply its project memory, build
+  tables the project's members can see, and read the lists the team saved.
 
 ## Prerequisites
 

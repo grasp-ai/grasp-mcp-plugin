@@ -5,6 +5,17 @@ All notable changes to the Grasp plugin are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.6.0]
+
+### Added
+
+- Grasp projects. `grasp_list_projects` lists the projects the user belongs to. `grasp_get_project_memory` reads a project's memory, the team's brief for work in the project; it is changed only in the Grasp app. `grasp_list_project_tables` lists the project's saved lists and the tables in its shared chats; the table read and export tools read them read-only.
+- `grasp_setup_conversation` accepts `project_id`, so the conversation and its tables are shared with the project's members.
+
+### Changed
+
+- The `creating-tables` skill checks a project's lists with `grasp_list_project_tables` before building one for the project.
+
 ## [1.5.0]
 
 ### Added
