@@ -79,6 +79,7 @@ For "what has X acquired", acquisition cadence, typical deal sizes, or multiples
 - For fit, attractiveness, or buyer-capacity questions, separate returned facts from judgment.
 - For comparisons, resolve and fetch each company separately and compare fields that were actually returned.
 - For table/list setup, translate the company profile into a concise business activity, geography, scale, and canonical URL/domain for the next skill.
+- If `grasp_get_valuation_comps` returns `not_supported`, give its reason. Don't estimate a value yourself or build a table unless the user asks.
 
 ## Missing Company In A Table
 
