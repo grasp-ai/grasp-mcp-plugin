@@ -19,7 +19,7 @@ When the table below says to read `skill:sizing-markets/<part>`, call the `grasp
 | Phase | What you do |
 | ----- | ----------- |
 | 1 | Read `skill:sizing-markets/scoping`. Draw the grid, propose defaults, confirm in chat, then call `grasp_set_market_sizing_scope`. |
-| 2 | Read `skill:sizing-markets/bottom-up`, which covers phases 2 and 3. Start the research first: call `grasp_research_market_size_top_down` and `grasp_research_market_growth` together. Each starts a job of up to 20 minutes, the growth search 25 with a split, one helper reading the reports into the handover record and a second writing the growth record. Don't wait for them. Build the universe table, call `grasp_check_market_data_coverage` and tell the user how much of the number will be measured. |
+| 2 | Read `skill:sizing-markets/bottom-up`, which covers phases 2 and 3. Start the research first: call `grasp_research_market_size_top_down` and `grasp_research_market_growth` together. The size search runs up to 20 minutes and the growth search up to 25, one helper reading the reports into the handover record and a second writing the growth record. Don't wait for them. Build the universe table, call `grasp_check_market_data_coverage` and tell the user how much of the number will be measured. |
 | 3 | Call `grasp_research_market_size_bottom_up`: the attribution pass and its audit, one job of 10 to 30 minutes that writes the audit record. It waits for the research to finish where it needs it. |
 | 4 | Read `skill:sizing-markets/reconcile`. Call `grasp_reconcile_market_size`, settle its open questions by its rules, then call it again with your choices and the range. |
 | 5 | Read `skill:sizing-markets/output`. Call `grasp_write_sizing_page` and share the link it returns. |
