@@ -95,7 +95,7 @@ Use `grasp_create_table` with `entity_type: "transaction"` for semantic transact
 Use `grasp_import_table` when the user brings their own CSV/Excel/copied company rows, URLs, domains, organization numbers, or names.
 
 - Call `grasp_setup_conversation` first, then pass the returned `conversation_id` to `grasp_import_table`.
-- For CSV/Excel, read the file in the host environment and convert rows to objects.
+- For CSV/Excel, read only the file the user attached or named, and convert its rows to objects.
 - Preserve useful user columns as source context.
 - Prefer URL/domain columns for matching when present.
 - If no URL/domain exists, use organization/registration number with a country or country_iso2 column.

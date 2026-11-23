@@ -102,7 +102,7 @@ Pull the full Grasp profile for stripe.com and build a table of 15 similar compa
   rows you explicitly import. CSV/Excel files are parsed by the client/agent
   before calling the import tool.
 - Data returned by Grasp is processed under the Grasp privacy policy:
-  https://grasp-ai.com/privacy
+  https://www.grasp-ai.com/privacy-policy
 
 ## Notes & limitations
 
@@ -117,3 +117,8 @@ Pull the full Grasp profile for stripe.com and build a table of 15 similar compa
 
 Contact Grasp support at https://grasp-ai.com or open an issue in this
 repository.
+
+## License
+
+[MIT](./LICENSE). The Grasp name and logos, including the files in `assets/`, are
+trademarks of Grasp Research AB and are not covered by this license.

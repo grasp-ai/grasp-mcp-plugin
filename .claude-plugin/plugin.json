@@ -1,12 +1,14 @@
 {
   "name": "grasp",
-  "version": "1.6.8",
+  "version": "1.6.9",
   "description": "Deal-work workflows powered by Grasp company lookup, table creation, import, buyer, transaction, table enrichment, contact, and market research tools.",
   "author": {
     "name": "Grasp"
   },
   "homepage": "https://grasp-ai.com",
   "repository": "https://github.com/grasp-ai/grasp-mcp-plugin",
+  "license": "MIT",
+  "privacyPolicyUrl": "https://www.grasp-ai.com/privacy-policy",
   "keywords": [
     "grasp",
     "mcp",
