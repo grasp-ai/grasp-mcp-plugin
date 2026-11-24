@@ -104,6 +104,23 @@ Pull the full Grasp profile for stripe.com and build a table of 15 similar compa
 - Data returned by Grasp is processed under the Grasp privacy policy:
   https://www.grasp-ai.com/privacy-policy
 
+## Contact data and privacy
+
+`grasp_search_contacts`, `grasp_unlock_contact_emails`, contact columns and
+company profiles from `grasp_get_company` return named people's professional
+contact details: name, job title, employer, work email, phone number and
+LinkedIn profile.
+
+- **Data sources:** Apollo.io (ZenLeads, Inc.) and public web pages, such as
+  company websites and press releases.
+- **Legal basis:** Grasp Research AB processes these professional details on
+  the basis of its own and its customers' legitimate interests in
+  business-to-business research and business development (Article 6(1)(f)
+  GDPR).
+- **Removal:** if you are listed and want to be removed, submit a request
+  through Apollo's Privacy Center:
+  https://www.apollo.io/company/privacy-center
+
 ## Notes & limitations
 
 - This configuration connects to Grasp's hosted MCP server; there is no local
