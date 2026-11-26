@@ -22,7 +22,7 @@ Add one research column per confirmed attribute with `grasp_add_research_column`
 - `categorical`, with its three counts and no Other: value chain breadth
 - `binary`: active consolidator
 - `free-text`: self-description, named competitors, recent M&A
-- whatever the user added, in the type its answer takes
+- whatever the user added, in the type its answer takes, with a yes-or-no attribute as `categorical` with "Yes", "No" and "Not found". Answer "No" when a source that would show it leaves it out, such as the player's own list of integrations
 
 Once the last of them has finished, fill the core table's `ownership` output with `grasp_run_table_outputs`, since a table runs one job at a time; where `grasp_get_table` shows the table has none, add it first with `grasp_update_table` and `output_column: "ownership"`. It gives each player's owner type and ultimate owner for the page:
 
